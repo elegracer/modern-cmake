@@ -208,3 +208,6 @@ Temporary Items
 # Misc
 build/
 .vscode/
+
+data/**
+!data/.gitkeep

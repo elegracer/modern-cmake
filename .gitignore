@@ -206,17 +206,15 @@ Temporary Items
 
 
 # Misc
-build/**
-cmake-build-debug/**
-cmake-build-release/**
-cmake-build-relwithdebinfo/**
-.idea/**
-.vscode/**
+build*/
+cmake-build-debug/
+cmake-build-release/
+cmake-build-relwithdebinfo/
+.idea/
+.vscode/
 
 *.custom.sh
 *.conf
-
-build-docker/**
 
 3rdparty/**
 !3rdparty/.gitkeep

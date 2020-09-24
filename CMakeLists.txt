@@ -9,6 +9,7 @@ set(THIRDPARTY_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}/deps")
 
 # always generate PIC code, no matter static or shared library
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # options
 option(OPTION_A "..." ON)

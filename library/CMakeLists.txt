@@ -40,8 +40,8 @@ set(CORE_PRIVATE_HEADERS)
 set(CORE_PRIVATE_SOURCES ${CORE_SOURCE_DIR}/core/core.cpp)
 
 add_library(core)
-set_target_properties(core PROPERTIES CXX_EXTENSIONS OFF
-)# -std=c++** instead of -std=g++**
+# set_target_properties(core PROPERTIES CXX_EXTENSIONS OFF
+# )# -std=c++** instead of -std=g++**
 target_sources(
     core PRIVATE ${CORE_PUBLIC_HEADERS} ${CORE_PUBLIC_SOURCES}
                  ${CORE_PRIVATE_HEADERS} ${CORE_PRIVATE_SOURCES}

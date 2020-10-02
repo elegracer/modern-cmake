@@ -206,8 +206,14 @@ Temporary Items
 
 
 # Misc
-build/
+build*/
+cmake-build-debug/
+cmake-build-release/
+cmake-build-relwithdebinfo/
 .vscode/
+.idea/
 
 data/**
 !data/.gitkeep
+3rdparty/**
+!3rdparty/.gitkeep

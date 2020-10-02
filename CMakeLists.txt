@@ -15,6 +15,7 @@ find_package(Eigen3 REQUIRED)
 
 # always generate PIC code, no matter static or shared library
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # options
 option(CORE_OPTION "..." ON)
@@ -22,7 +23,6 @@ option(CORE_OPTION "..." ON)
 configure_file(cmake/version.h.in include/core/version.h)
 
 add_library(core)
-set_target_properties(core PROPERTIES CXX_EXTENSIONS OFF) # -std=c++17 instead of -std=g++17
 target_sources(core
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include/core/core.h

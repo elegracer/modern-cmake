@@ -220,3 +220,5 @@ cmake-build-relwithdebinfo/
 !3rdparty/.gitkeep
 data/**
 !data/.gitkeep
+3rdparty/**
+!3rdparty/.gitkeep

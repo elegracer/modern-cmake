@@ -6,5 +6,5 @@
 
 namespace core {
 
-std::string getProjectDescription(int major, int minor, int patch);
+std::string get_project_description();
 }

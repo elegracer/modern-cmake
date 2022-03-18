@@ -5,6 +5,9 @@ project(super)
 set(CMAKE_POLICY_DEFAULT_CMP0120 OLD)
 set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
 
+include(FetchContent)
+set(FETCHCONTENT_QUIET OFF)
+
 include(CMakeDependentOption)
 
 # ccache
@@ -32,6 +35,66 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG")
 
 set(THIRDPARTY_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty")
 set(THIRDPARTY_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}/deps")
+
+## 3rdparty libraries
+
+# spdlog
+FetchContent_Declare(
+    spdlog
+    URL https://github.com/gabime/spdlog/archive/refs/tags/v1.9.2.zip
+    URL_HASH MD5=a3d2fb9e5c811ba100380aa82d48f989
+    DOWNLOAD_DIR ${THIRDPARTY_SOURCE_DIR}
+    SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/spdlog-src
+)
+FetchContent_GetProperties(spdlog)
+if(NOT spdlog_POPULATED)
+    FetchContent_Populate(spdlog)
+    add_subdirectory(${spdlog_SOURCE_DIR})
+    add_library(depends::spdlog INTERFACE IMPORTED GLOBAL)
+    target_link_libraries(depends::spdlog INTERFACE spdlog::spdlog_header_only)
+    set(spdlog-source-dir ${spdlog_SOURCE_DIR} CACHE INTERNAL "" FORCE)
+    set(spdlog-binary-dir ${spdlog_BINARY_DIR} CACHE INTERNAL "" FORCE)
+    mark_as_advanced(spdlog-source-dir)
+    mark_as_advanced(spdlog-binary-dir)
+endif()
+
+# boost
+FetchContent_Declare(
+    boost
+    URL https://boostorg.jfrog.io/artifactory/main/beta/1.79.0.beta1/source/boost_1_79_0_b1.zip
+    URL_HASH MD5=960590ecc301cf6c090db02e35527315
+    DOWNLOAD_DIR ${THIRDPARTY_SOURCE_DIR}
+    SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/boost-src
+)
+FetchContent_GetProperties(boost)
+if(NOT boost_POPULATED)
+    FetchContent_Populate(boost)
+    add_library(depends::boost INTERFACE IMPORTED GLOBAL)
+    target_include_directories(depends::boost INTERFACE "${boost_SOURCE_DIR}")
+    set(boost-source-dir ${boost_SOURCE_DIR} CACHE INTERNAL "" FORCE)
+    set(boost-binary-dir ${boost_BINARY_DIR} CACHE INTERNAL "" FORCE)
+    mark_as_advanced(boost-source-dir)
+    mark_as_advanced(boost-binary-dir)
+endif()
+
+# eigen
+FetchContent_Declare(
+    eigen
+    URL https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.zip
+    URL_HASH MD5=994092410ba29875184f7725e0371596
+    DOWNLOAD_DIR ${THIRDPARTY_SOURCE_DIR}
+    SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/eigen-src
+)
+FetchContent_GetProperties(eigen)
+if(NOT eigen_POPULATED)
+    FetchContent_Populate(eigen)
+    add_library(depends::eigen INTERFACE IMPORTED GLOBAL)
+    target_include_directories(depends::eigen INTERFACE "${eigen_SOURCE_DIR}")
+    set(eigen-source-dir ${eigen_SOURCE_DIR} CACHE INTERNAL "" FORCE)
+    set(eigen-binary-dir ${eigen_BINARY_DIR} CACHE INTERNAL "" FORCE)
+    mark_as_advanced(eigen-source-dir)
+    mark_as_advanced(eigen-binary-dir)
+endif()
 
 # options
 option(OPTION_A "..." ON)

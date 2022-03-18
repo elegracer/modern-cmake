@@ -1,8 +1,8 @@
 #pragma once
 
-#include <core/version.h>
-
 #include <string>
+
+#include "core/version.h"
 
 namespace core {
 

@@ -1,10 +1,10 @@
-#include <core/core.h>
+#include "core/core.h"
 
-#include <iostream>
+#include "spdlog/fmt/fmt.h"
 
 int main(int argc, const char *argv[]) {
 
-    std::cout << core::get_project_description() << std::endl;
+    fmt::print("{}\n", core::get_project_description());
 
     return 0;
 }

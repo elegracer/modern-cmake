@@ -43,8 +43,9 @@ FetchContent_Declare(
     spdlog
     URL https://github.com/gabime/spdlog/archive/refs/tags/v1.9.2.tar.gz
     URL_HASH MD5=cee7f3d31178a00791d7a22c6738df6d
+    DOWNLOAD_NAME spdlog-1.9.2.tar.gz
     DOWNLOAD_DIR ${THIRDPARTY_SOURCE_DIR}
-    SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/spdlog-src
+    # SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/spdlog-src
 )
 FetchContent_GetProperties(spdlog)
 if(NOT spdlog_POPULATED)
@@ -63,8 +64,9 @@ FetchContent_Declare(
     boost
     URL https://boostorg.jfrog.io/artifactory/main/beta/1.79.0.beta1/source/boost_1_79_0_b1.tar.gz
     URL_HASH MD5=b2a240d67680ef965a5167e974c1c0e8
+    DOWNLOAD_NAME boost-1.79.0-b1.tar.gz
     DOWNLOAD_DIR ${THIRDPARTY_SOURCE_DIR}
-    SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/boost-src
+    # SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/boost-src
 )
 FetchContent_GetProperties(boost)
 if(NOT boost_POPULATED)
@@ -82,8 +84,9 @@ FetchContent_Declare(
     eigen
     URL https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
     URL_HASH MD5=4c527a9171d71a72a9d4186e65bea559
+    DOWNLOAD_NAME eigen-3.4.0.tar.gz
     DOWNLOAD_DIR ${THIRDPARTY_SOURCE_DIR}
-    SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/eigen-src
+    # SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/eigen-src
 )
 FetchContent_GetProperties(eigen)
 if(NOT eigen_POPULATED)
@@ -95,6 +98,27 @@ if(NOT eigen_POPULATED)
     mark_as_advanced(eigen-source-dir)
     mark_as_advanced(eigen-binary-dir)
 endif()
+
+# lyra
+FetchContent_Declare(
+    lyra
+    URL https://github.com/bfgroup/Lyra/archive/refs/tags/1.6.tar.gz
+    URL_HASH MD5=08b7b28aacb0bf07f28dbd5d0858c6ea
+    DOWNLOAD_NAME lyra-1.6.tar.gz
+    DOWNLOAD_DIR ${THIRDPARTY_SOURCE_DIR}
+    # SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/lyra-src
+)
+FetchContent_GetProperties(lyra)
+if(NOT lyra_POPULATED)
+    FetchContent_Populate(lyra)
+    add_library(depends::lyra INTERFACE IMPORTED GLOBAL)
+    target_include_directories(depends::lyra INTERFACE "${lyra_SOURCE_DIR}/include")
+    set(lyra-source-dir ${lyra_SOURCE_DIR} CACHE INTERNAL "" FORCE)
+    set(lyra-binary-dir ${lyra_BINARY_DIR} CACHE INTERNAL "" FORCE)
+    mark_as_advanced(lyra-source-dir)
+    mark_as_advanced(lyra-binary-dir)
+endif()
+
 
 # options
 option(OPTION_A "..." ON)

@@ -119,6 +119,25 @@ if(NOT lyra_POPULATED)
     mark_as_advanced(lyra-binary-dir)
 endif()
 
+# range-v3
+FetchContent_Declare(
+    range-v3
+    URL https://github.com/ericniebler/range-v3/archive/d800a032132512a54c291ce55a2a43e0460591c7.zip
+    URL_HASH MD5=0319befb31e9ffbeddd1b332227f8fbe
+    DOWNLOAD_NAME range-v3-d800a03.zip
+    DOWNLOAD_DIR ${THIRDPARTY_SOURCE_DIR}
+    # SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/range-v3-src
+)
+FetchContent_GetProperties(range-v3)
+if(NOT range-v3_POPULATED)
+    FetchContent_Populate(range-v3)
+    add_library(depends::range-v3 INTERFACE IMPORTED GLOBAL)
+    target_include_directories(depends::range-v3 INTERFACE "${range-v3_SOURCE_DIR}/include")
+    set(range-v3-source-dir ${range-v3_SOURCE_DIR} CACHE INTERNAL "" FORCE)
+    set(range-v3-binary-dir ${range-v3_BINARY_DIR} CACHE INTERNAL "" FORCE)
+    mark_as_advanced(range-v3-source-dir)
+    mark_as_advanced(range-v3-binary-dir)
+endif()
 
 # options
 option(OPTION_A "..." ON)

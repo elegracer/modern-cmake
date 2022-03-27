@@ -17,6 +17,10 @@ add_executable(use_lyra)
 target_sources(use_lyra PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/use_lyra.cpp)
 target_link_libraries(use_lyra PRIVATE core)
 
+add_executable(use_range)
+target_sources(use_range PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/use_range.cpp)
+target_link_libraries(use_range PRIVATE core)
+
 add_executable(use_spdlog)
 target_sources(use_spdlog PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/use_spdlog.cpp)
 target_link_libraries(use_spdlog PRIVATE core)

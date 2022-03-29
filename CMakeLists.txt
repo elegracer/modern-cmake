@@ -50,14 +50,14 @@ FetchContent_Declare(
 FetchContent_GetProperties(spdlog)
 if(NOT spdlog_POPULATED)
     FetchContent_Populate(spdlog)
-    add_subdirectory(${spdlog_SOURCE_DIR})
-    add_library(depends::spdlog INTERFACE IMPORTED GLOBAL)
-    target_link_libraries(depends::spdlog INTERFACE spdlog::spdlog_header_only)
-    set(spdlog-source-dir ${spdlog_SOURCE_DIR} CACHE INTERNAL "" FORCE)
-    set(spdlog-binary-dir ${spdlog_BINARY_DIR} CACHE INTERNAL "" FORCE)
-    mark_as_advanced(spdlog-source-dir)
-    mark_as_advanced(spdlog-binary-dir)
 endif()
+add_subdirectory(${spdlog_SOURCE_DIR})
+add_library(depends::spdlog INTERFACE IMPORTED GLOBAL)
+target_link_libraries(depends::spdlog INTERFACE spdlog::spdlog_header_only)
+set(spdlog-source-dir ${spdlog_SOURCE_DIR} CACHE INTERNAL "" FORCE)
+set(spdlog-binary-dir ${spdlog_BINARY_DIR} CACHE INTERNAL "" FORCE)
+mark_as_advanced(spdlog-source-dir)
+mark_as_advanced(spdlog-binary-dir)
 
 # boost
 FetchContent_Declare(
@@ -71,13 +71,13 @@ FetchContent_Declare(
 FetchContent_GetProperties(boost)
 if(NOT boost_POPULATED)
     FetchContent_Populate(boost)
-    add_library(depends::boost INTERFACE IMPORTED GLOBAL)
-    target_include_directories(depends::boost INTERFACE "${boost_SOURCE_DIR}")
-    set(boost-source-dir ${boost_SOURCE_DIR} CACHE INTERNAL "" FORCE)
-    set(boost-binary-dir ${boost_BINARY_DIR} CACHE INTERNAL "" FORCE)
-    mark_as_advanced(boost-source-dir)
-    mark_as_advanced(boost-binary-dir)
 endif()
+add_library(depends::boost INTERFACE IMPORTED GLOBAL)
+target_include_directories(depends::boost INTERFACE ${boost_SOURCE_DIR})
+set(boost-source-dir ${boost_SOURCE_DIR} CACHE INTERNAL "" FORCE)
+set(boost-binary-dir ${boost_BINARY_DIR} CACHE INTERNAL "" FORCE)
+mark_as_advanced(boost-source-dir)
+mark_as_advanced(boost-binary-dir)
 
 # eigen
 FetchContent_Declare(
@@ -91,13 +91,52 @@ FetchContent_Declare(
 FetchContent_GetProperties(eigen)
 if(NOT eigen_POPULATED)
     FetchContent_Populate(eigen)
-    add_library(depends::eigen INTERFACE IMPORTED GLOBAL)
-    target_include_directories(depends::eigen INTERFACE "${eigen_SOURCE_DIR}")
-    set(eigen-source-dir ${eigen_SOURCE_DIR} CACHE INTERNAL "" FORCE)
-    set(eigen-binary-dir ${eigen_BINARY_DIR} CACHE INTERNAL "" FORCE)
-    mark_as_advanced(eigen-source-dir)
-    mark_as_advanced(eigen-binary-dir)
 endif()
+set(EIGEN_TEST_CXX11 ON CACHE BOOL "" FORCE)
+set(EIGEN_BUILD_DOC OFF CACHE BOOL "" FORCE)
+set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
+add_subdirectory(${eigen_SOURCE_DIR} ${eigen_BINARY_DIR})
+add_library(depends::eigen INTERFACE IMPORTED GLOBAL)
+target_link_libraries(depends::eigen INTERFACE Eigen3::Eigen)
+set(eigen-source-dir ${eigen_SOURCE_DIR} CACHE INTERNAL "" FORCE)
+set(eigen-binary-dir ${eigen_BINARY_DIR} CACHE INTERNAL "" FORCE)
+mark_as_advanced(eigen-source-dir)
+mark_as_advanced(eigen-binary-dir)
+
+# ceres-solver
+FetchContent_Declare(
+    ceres-solver
+    URL https://github.com/ceres-solver/ceres-solver/archive/refs/tags/2.1.0.tar.gz
+    URL_HASH MD5=4ab48f439d63a09a075d4fcdcddc7667
+    DOWNLOAD_NAME ceres-solver-2.1.0.tar.gz
+    DOWNLOAD_DIR ${THIRDPARTY_SOURCE_DIR}
+    # SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/ceres-solver-src
+)
+FetchContent_GetProperties(ceres-solver)
+if(NOT ceres-solver_POPULATED)
+    FetchContent_Populate(ceres-solver)
+endif()
+set(Eigen3_DIR ${eigen-binary-dir} CACHE PATH "" FORCE)
+set(MINIGLOG ON CACHE BOOL "" FORCE)
+set(GFLAGS OFF CACHE BOOL "" FORCE)
+set(SUITESPARSE OFF CACHE BOOL "" FORCE)
+set(CXSPARSE OFF CACHE BOOL "" FORCE)
+set(CUDA OFF CACHE BOOL "" FORCE)
+set(LAPACK OFF CACHE BOOL "" FORCE)
+set(SCHUR_SPECIALIZATIONS OFF CACHE BOOL "" FORCE)
+set(CUSTOM_BLAS OFF CACHE BOOL "" FORCE)
+set(EIGENSPARSE ON CACHE BOOL "" FORCE)
+set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
+set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(BUILD_BENCHMARKS OFF CACHE BOOL "" FORCE)
+set(PROVIDE_UNINSTALL_TARGET OFF CACHE BOOL "" FORCE)
+add_subdirectory(${ceres-solver_SOURCE_DIR} ${ceres-solver_BINARY_DIR})
+add_library(depends::ceres-solver INTERFACE IMPORTED GLOBAL)
+target_link_libraries(depends::ceres-solver INTERFACE ceres)
+set(ceres-solver-source-dir ${ceres-solver_SOURCE_DIR} CACHE INTERNAL "" FORCE)
+set(ceres-solver-binary-dir ${ceres-solver_BINARY_DIR} CACHE INTERNAL "" FORCE)
+mark_as_advanced(ceres-solver-source-dir)
+mark_as_advanced(ceres-solver-binary-dir)
 
 # lyra
 FetchContent_Declare(
@@ -111,13 +150,14 @@ FetchContent_Declare(
 FetchContent_GetProperties(lyra)
 if(NOT lyra_POPULATED)
     FetchContent_Populate(lyra)
-    add_library(depends::lyra INTERFACE IMPORTED GLOBAL)
-    target_include_directories(depends::lyra INTERFACE "${lyra_SOURCE_DIR}/include")
-    set(lyra-source-dir ${lyra_SOURCE_DIR} CACHE INTERNAL "" FORCE)
-    set(lyra-binary-dir ${lyra_BINARY_DIR} CACHE INTERNAL "" FORCE)
-    mark_as_advanced(lyra-source-dir)
-    mark_as_advanced(lyra-binary-dir)
 endif()
+add_subdirectory(${lyra_SOURCE_DIR} ${lyra_BINARY_DIR})
+add_library(depends::lyra INTERFACE IMPORTED GLOBAL)
+target_link_libraries(depends::lyra INTERFACE bfg::lyra)
+set(lyra-source-dir ${lyra_SOURCE_DIR} CACHE INTERNAL "" FORCE)
+set(lyra-binary-dir ${lyra_BINARY_DIR} CACHE INTERNAL "" FORCE)
+mark_as_advanced(lyra-source-dir)
+mark_as_advanced(lyra-binary-dir)
 
 # range-v3
 FetchContent_Declare(
@@ -131,13 +171,13 @@ FetchContent_Declare(
 FetchContent_GetProperties(range-v3)
 if(NOT range-v3_POPULATED)
     FetchContent_Populate(range-v3)
-    add_library(depends::range-v3 INTERFACE IMPORTED GLOBAL)
-    target_include_directories(depends::range-v3 INTERFACE "${range-v3_SOURCE_DIR}/include")
-    set(range-v3-source-dir ${range-v3_SOURCE_DIR} CACHE INTERNAL "" FORCE)
-    set(range-v3-binary-dir ${range-v3_BINARY_DIR} CACHE INTERNAL "" FORCE)
-    mark_as_advanced(range-v3-source-dir)
-    mark_as_advanced(range-v3-binary-dir)
 endif()
+add_library(depends::range-v3 INTERFACE IMPORTED GLOBAL)
+target_include_directories(depends::range-v3 INTERFACE "${range-v3_SOURCE_DIR}/include")
+set(range-v3-source-dir ${range-v3_SOURCE_DIR} CACHE INTERNAL "" FORCE)
+set(range-v3-binary-dir ${range-v3_BINARY_DIR} CACHE INTERNAL "" FORCE)
+mark_as_advanced(range-v3-source-dir)
+mark_as_advanced(range-v3-binary-dir)
 
 # options
 option(OPTION_A "..." ON)

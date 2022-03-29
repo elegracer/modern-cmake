@@ -5,6 +5,8 @@
 
 #include "range/v3/view/sliding.hpp"
 
+#include <vector>
+
 int main(int argc, const char *argv[]) {
 
 

@@ -19,4 +19,4 @@ target_include_directories(
     core PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/include
                 ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
-target_link_libraries(core PUBLIC depends::spdlog depends::boost depends::eigen depends::lyra depends::range-v3)
+target_link_libraries(core PUBLIC depends::spdlog)

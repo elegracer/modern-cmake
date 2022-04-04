@@ -43,9 +43,9 @@ set(THIRDPARTY_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}/deps")
 # spdlog
 FetchContent_Declare(
     spdlog
-    URL https://github.com/gabime/spdlog/archive/refs/tags/v1.9.2.tar.gz
-    URL_HASH MD5=cee7f3d31178a00791d7a22c6738df6d
-    DOWNLOAD_NAME spdlog-1.9.2.tar.gz
+    URL https://github.com/gabime/spdlog/archive/refs/tags/v1.10.0.tar.gz
+    URL_HASH MD5=effea813cd81cfb5588806c5754e14f1
+    DOWNLOAD_NAME spdlog-1.10.0.tar.gz
     DOWNLOAD_DIR ${THIRDPARTY_SOURCE_DIR}
     # SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}/spdlog-src
 )

@@ -211,14 +211,22 @@ cmake-build-debug/
 cmake-build-release/
 cmake-build-relwithdebinfo/
 .idea/
-.vscode/
+.vscode/**
+!.vscode/launch.json
 
 *.custom.sh
 *.conf
 
-3rdparty/**
-!3rdparty/.gitkeep
 data/**
 !data/.gitkeep
-3rdparty/**
-!3rdparty/.gitkeep
+
+vcpkg_installed/
+
+imgui.ini
+
+.vs/
+
+bin/**
+!bin/.gitkeep
+
+CMakeLists.txt.user

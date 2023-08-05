@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-int main(int argc, const char *argv[]) {
+int main(int argc, const char* argv[]) {
 
     std::cout << core::get_project_description() << std::endl;
 
